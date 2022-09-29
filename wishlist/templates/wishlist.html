@@ -16,13 +16,15 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
         {% block content %}
             <nav class="navbar navbar-dark bg-dark">
-                <div class="container">
+                <div class="container-fluid">
                     <span class="navbar-brand mb-0 h1">{{nama}}</span>
                     <a class="btn btn-danger" type="button" href="{% url 'wishlist:logout' %}">Logout</a>
                 </div>
             </nav>
-            <table>
-                <tr>
+            <br>
+            <h4 style="text-align: center;">My Wishlist</h4>
+            <table class="table table-striped table-responsive table-bordered   ">
+                <tr class="table-dark">
                     <th>Nama Barang</th>
                     <th>Harga Barang</th>
                     <th>Deskripsi</th>
@@ -30,14 +32,14 @@
                 {% comment %} Tambahkan data di bawah baris ini {% endcomment %}
                 {% for barang in list_barang %}
                     <tr>
-                        <th>{{barang.nama_barang}}</th>
-                        <th>{{barang.harga_barang}}</th>
-                        <th>{{barang.deskripsi}}</th>
+                        <th style="font-weight: normal;">{{barang.nama_barang}}</th>
+                        <th style="font-weight: normal;">{{barang.harga_barang}}</th>
+                        <th style="font-weight: normal;">{{barang.deskripsi}}</th>
                     </tr>
                 {% endfor %}
             </table>
             <br>
-            <h5>Sesi terakhir login: {{ last_login }}</h5>
+            <p>Sesi terakhir login: {{ last_login }}</p>
         {% endblock content %}
     </body>
 
