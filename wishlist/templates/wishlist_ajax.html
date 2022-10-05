@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+    <title>My Wishlist</title>
+{% endblock meta %}
+
+{% block content %}
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid">
+            <span class="navbar-brand mb-0 h1">{{nama}}</span>
+            <a class="btn btn-danger" type="button" href="{% url 'wishlist:logout' %}">Logout</a>
+        </div>
+    </nav>
+    <h4 style="text-align: center;" class="lh-lg">My Wishlist</h4>
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered mx-auto w-auto">
+            <tr class="table-dark">
+                <th>Nama Barang</th>
+                <th>Harga Barang</th>
+                <th>Deskripsi</th>
+            </tr>
+            {% comment %} Tambahkan data di bawah baris ini {% endcomment %}
+            {% for barang in list_barang %}
+            <tr>
+                <th style="font-weight: normal;">{{barang.nama_barang}}</th>
+                <th style="font-weight: normal;">{{barang.harga_barang}}</th>
+                <th style="font-weight: normal;">{{barang.deskripsi}}</th>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    
+    
+    <p class="fixed-bottom">Sesi terakhir login: {{ last_login }}</p>
+{% endblock content %}
