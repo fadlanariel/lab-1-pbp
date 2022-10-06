@@ -7,7 +7,7 @@ from wishlist.views import show_xml_filtered
 from wishlist.views import register
 from wishlist.views import login_user
 from wishlist.views import logout_user
-from wishlist.views import show_wishlist_ajax
+from wishlist.views import show_wishlist_ajax, add_wishlist
 
 app_name = 'wishlist'
 
@@ -21,4 +21,5 @@ urlpatterns = [
     path('login/', login_user, name='login'),
     path('logout/', logout_user, name='logout'),
     path('ajax/', show_wishlist_ajax, name='show_wishlist_ajax'),
+    path('ajax/submit', add_wishlist, name="add_wishlist"),
 ]
