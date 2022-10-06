@@ -43,7 +43,10 @@
 
     #last-login {
         font-size: small;
-        text-align: right;
+        position: sticky;
+        bottom: 0;
+        right: 0;
+        width: fit-content;
     }
 
 </style>
@@ -51,36 +54,38 @@
 
 {% block content %}
 <script type="text/javascript">
+    // send HTTP request to get JSON from url and append it to the html table
+    // ajax() agar request jadi asynchronous
     $.ajax({
     url: '../json/',
     dataType: 'json',
-    success: function(data) {
+    success: function(data) { // jika request berhasil
         for (var i=0; i<data.length; i++) {
             var row = $('<tr><td>' + data[i].fields.nama_barang+ '</td><td>' + data[i].fields.harga_barang + '</td><td>' +
              data[i].fields.deskripsi + '</td></tr>');
             $('#myTable').append(row);
         }
     },
-    error: function(jqXHR, textStatus, errorThrown){
+    error: function(jqXHR, textStatus, errorThrown){ // jika request gagal tampilkan error message
         alert('Error: ' + textStatus + ' - ' + errorThrown);
     }
     });
 
-    $(document).on('submit', '#add-wishlist',function(e){
+    $(document).on('submit', '#add-wishlist',function(e){ // dapatkan trigger melalui id dari button
         $.ajax({
             type:'POST',
-            url:"{% url 'wishlist:add_wishlist' %}",
-            data:{
-                nama_barang:$('#nama-barang').val(),
+            url:"{% url 'wishlist:add_wishlist' %}", //url untuk ke views tambahkan data
+            data:{ // dapatkan data sesuai id dari input yang ada di form
+                nama_barang:$('#nama-barang').val(),    
                 harga_barang:$('#harga-barang').val(),
                 deskripsi:$('#deskripsi').val(),
                 csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
                 action: 'post'
             },
-            success:function(json){
-                document.getElementById("add-wishlist").reset();
+            success:function(json){ 
+                //document.getElementById("add-wishlist").reset();
             },
-            error : function(xhr,errmsg,err) {
+            error : function(xhr,errmsg,err) { // tampilkan error message jika gagal
                 console.log(xhr.status + ": " + xhr.responseText);
         }
         });
@@ -123,8 +128,5 @@
     </form>
 </div>
 
-<footer>
-    <p id="last-login" class="fixed-bottom">Last session: {{ last_login }}</p>
-</footer>
-
+<p id="last-login" class="fixed-bottom">Last session: {{ last_login }}</p>
 {% endblock content %}
